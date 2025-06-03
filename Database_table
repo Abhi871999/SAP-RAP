@@ -1,0 +1,34 @@
+@EndUserText.label : 'Table for Vendor Testing'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zab_vendor_1 {
+
+  key client     : abap.clnt not null;
+  key vendoruuid : sysuuid_x16 not null;
+  lifnr          : zdelifnr;
+  name           : zdname;
+  land1          : zdland1;
+  ort01          : zdort01;
+
+}
+
+***********************************************************************8
+
+@EndUserText.label : 'EKKO Table'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zab_ekko_1 {
+
+  key client      : abap.clnt not null;
+  key vendor_uuid : sysuuid_x16 not null;
+  key po_id       : sysuuid_x16 not null;
+  purchaseno      : zdpono;
+  comcode         : zdcomcode;
+  doccat          : zddoccat;
+  doctype         : zddoctype;
+
+}
