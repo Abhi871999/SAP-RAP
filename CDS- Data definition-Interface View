@@ -1,0 +1,41 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Vendor CDS Root view entity'
+@Metadata.ignorePropagatedAnnotations: true
+define root view entity ZAB_I_VENDOR_1 as select from zab_vendor_1
+association to ZAB_I_COUNTRY_DOMAIN as _COUNTRY
+on $projection.Country = _COUNTRY.VALUE
+composition[0..*] of ZAB_I_EKKO_1 as _ekko
+
+{
+    key vendoruuid as VendorUuid,
+    lifnr as Vendor,
+    name as Vendor_name,
+    land1 as Country,
+    ort01 as City,
+    _COUNTRY,
+    _ekko
+}
+
+************************************************************************
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'INTERFACE CDS VIEW FOR EKKO'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+define view entity ZAB_I_EKKO_1 
+as select from zab_ekko_1
+association to parent ZAB_I_VENDOR_1 as _vendor
+on $projection.VendorUuid = _vendor.VendorUuid
+{
+    key vendor_uuid as VendorUuid,
+    key po_id as PoId,
+    purchaseno as Purchaseno,
+    comcode as Comcode,
+    doccat as Doccat,
+    doctype as Doctype,
+    _vendor
+}
