@@ -1,0 +1,106 @@
+@Metadata.layer: #CORE
+
+@UI : { 
+   headerInfo: {
+    typeName: 'VENDOR',
+    typeNamePlural: 'Vendor Details',
+    title : { type: #STANDARD, value: 'Vendor_name'},
+              description: { value : 'Vendor' }
+    }
+}
+annotate view ZAB_C_VENDOR_I
+    with 
+{
+@UI.facet: [{ 
+         id : 'idIdentification',
+         purpose : #STANDARD,
+         label: 'Vendor Details',
+         type: #IDENTIFICATION_REFERENCE,
+         position: 10
+           },
+           { 
+         id : 'EKKO',
+         purpose : #STANDARD,
+         label: 'Purchase Docs Header Data',
+         type: #LINEITEM_REFERENCE,
+         position: 20 ,
+         targetElement: '_ekko'
+            }
+           
+           
+           
+           ]
+ @UI : {   lineItem: [{ position: 10 }],
+         identification : [ { position: 10 } ]  }
+    VendorUuid;
+    
+  @UI : {   lineItem: [{ position: 20 }],
+         identification : [ { position: 20 } ],
+         selectionField: [{ position: 10 }]  }   
+    Vendor;
+ 
+  @UI : {   lineItem: [{ position: 30 }],
+         identification : [ { position: 30 } ]  }   
+    Vendor_name;
+ 
+  @UI : {   lineItem: [{ position: 40 }],
+         identification : [ { position: 40 } ]  } 
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZAB_I_COUNTRY_DOMAIN', element: 'VALUE' } 
+                                      }]         
+    Country;
+    
+   @UI : {   lineItem: [{ position: 50 }],
+         identification : [ { position: 50 } ]  }  
+    City;
+   
+}
+
+*******************************************************************************************************
+@Metadata.layer: #CORE
+@UI : { 
+   headerInfo: {
+    typeName: 'Purchase order',
+    typeNamePlural: 'Purchase Order Details',
+   title : { type: #STANDARD, value: 'Purchaseno'},
+              description: { value : 'Comcode' }
+    }
+}
+annotate view ZAB_C_EKKO_1
+    with 
+{
+@UI.facet: [{ 
+         id : 'EKKO',
+         purpose : #STANDARD,
+         label: 'Purchase docs header data',
+         type: #IDENTIFICATION_REFERENCE,
+         position: 10
+           } ]
+ @UI : {   lineItem: [{ position: 10 ,label: 'Vendor Id' }],
+         identification : [ { position: 10 } ]  }           
+  VendorUuid;
+  
+ @UI : {   lineItem: [{ position: 20, label: 'PO Id'}],
+         identification : [ { position: 20 } ]  }  
+  PoId;
+  
+  @UI : {   lineItem: [{ position: 30 }],
+         identification : [ { position: 30 } ]  } 
+  Purchaseno;
+ 
+  @UI : {   lineItem: [{ position: 40 }],
+         identification : [ { position: 40 } ]  } 
+  Comcode;
+  
+   @UI : {   lineItem: [{ position: 50 }],
+         identification : [ { position: 50 } ]  }
+  Doccat;
+  
+   @UI : {   lineItem: [{ position: 60 }],
+         identification : [ { position: 60 } ]  }
+  Doctype;
+  /* Associations */
+     @UI : {   lineItem: [{ position: 60 }],
+         identification : [ { position: 60 } ]  }
+  _vendor;
+    
+}
