@@ -1,0 +1,36 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Projection View'
+@Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
+define root view entity ZAB_C_VENDOR_I 
+provider contract transactional_query
+as projection on ZAB_I_VENDOR_1
+
+{
+    key VendorUuid,
+    Vendor,
+    Vendor_name,
+    Country,
+    City,
+    _COUNTRY,
+    _ekko : redirected to composition child zab_c_ekko_1
+}
+
+********************************************************************
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'EKKO CONSUMPTION VIEW'
+@Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
+define view entity ZAB_C_EKKO_1 
+as projection on ZAB_I_EKKO_1
+{
+    key VendorUuid,
+    key PoId,
+    Purchaseno,
+    Comcode,
+    Doccat,
+    Doctype,
+    /* Associations */
+    _vendor : redirected to parent ZAB_C_VENDOR_I
+}
+
