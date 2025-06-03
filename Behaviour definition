@@ -1,0 +1,70 @@
+managed implementation in class zbp_ab_i_vendor_1 unique;
+strict ( 2 );
+
+define behavior for ZAB_I_VENDOR_1 //alias <alias_name>
+persistent table zab_vendor_1
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly ) VendorUuid;
+  field ( numbering : managed) VendorUuid;
+  association _ekko { create; }
+
+  validation validatelifnr on save { field Vendor;create; }
+  mapping for ZAB_VENDOR_1
+  {
+  VendorUuid = vendoruuid;
+  Vendor = lifnr;
+  Vendor_name = name;
+  country = land1;
+  city = ort01;
+  }
+}
+
+define behavior for ZAB_I_EKKO_1 //alias <alias_name>
+persistent table zab_ekko_1
+lock dependent by _vendor
+authorization dependent by _vendor
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) VendorUuid, PoId;
+  field( numbering : managed) PoId;
+  association _vendor;
+  mapping for zab_ekko_1
+  {
+   VendorUuid = vendor_uuid;
+   PoId = po_id;
+   Purchaseno = purchaseno;
+   Comcode = comcode;
+   Doccat = doccat;
+   Doctype = doctype;
+  }
+}
+
+*************************************************************************8
+
+projection;
+strict ( 2 );
+
+define behavior for ZAB_C_VENDOR_I //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _ekko { create; }
+}
+
+define behavior for ZAB_C_EKKO_1 //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _vendor;
+}
