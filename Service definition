@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service def for CDS entity 2'
+define service ZAB_SRDEF_VENDOR_2 {
+  expose ZAB_C_VENDOR_I;
+  expose ZAB_C_EKKO_1;
+}
